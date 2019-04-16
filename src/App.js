@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css';
-
 
 const { ipcRenderer } = window.require('electron');
 
@@ -24,7 +21,6 @@ class App extends Component {
       <div className="App">
         <button onClick={this.onButtonClick}>Click me</button>
         <p>Message from Server: {this.state.msg}</p>
-        <InfiniteCalendar display="years" selected={null}/>
       </div>
     );
   }
