@@ -1,11 +1,11 @@
 const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
 const isDev = require('electron-is-dev');
 const path = require('path');
+
+const { app, BrowserWindow, ipcMain } = electron;
 let mainWindow;
 function createWindow() {
-  mainWindow = new BrowserWindow({width: 900, height: 680});
+  mainWindow = new BrowserWindow({ width: 900, height: 680 });
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
   // app.setAboutPanelOptions({
   //   applicationName: "Mook",
@@ -23,4 +23,9 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on('getReport', (event, data) => {
+  console.log(data);
+  mainWindow.webContents.send('showMessage', 'message from server');
 });
